@@ -60,7 +60,7 @@ class VistaSesion:
 
 
 # ===================== VISTA DE MENÚ =====================
-class VistaMenu:
+""" class VistaMenu:
     COLOR_LABEL = "#FFD166"  
 
     def __init__(self, master, rol):
@@ -94,7 +94,123 @@ class VistaMenu:
     def mostrarMensaje(self, texto):
         tk.Label(self.ventana, text=texto, bg="#F7F5D7", fg="black").pack(pady=10)
 
+        
+        """
+    # ===================== VISTA DE MENÚ =====================
+class VistaMenu:
+    COLOR_VERDE = "#7AC74F"
+    COLOR_AMARILLO = "#FFD166"
+    COLOR_AMARILLO_CLARO = "#FFF9D6"
+    COLOR_FONDO = "#FFFFFF"
 
+    def __init__(self, master, rol):
+        from vista import VistaFormulario  # Importar dentro para evitar import circular
+
+        self.rol = rol
+        self.master = master
+        self.ventana = tk.Toplevel(master)
+        self.ventana.title("Vivero Vital - Menú Principal")
+        self.ventana.geometry("1000x650")
+        self.ventana.configure(bg=self.COLOR_FONDO)
+
+        # ===================== ENCABEZADO =====================
+        header = tk.Frame(self.ventana, bg=self.COLOR_VERDE, height=60)
+        header.pack(fill="x", side="top")
+
+        tk.Label(header, text="🌿 Vivero Vital", bg=self.COLOR_VERDE, fg="white",
+                 font=("Arial", 20, "bold")).pack(side="left", padx=20)
+
+        # Switch simulado
+        tk.Label(header, bg="#A3E635", width=4, height=1, relief="ridge", bd=1).pack(side="right", padx=15, pady=10)
+        # Ícono usuario simulado
+        tk.Label(header, bg="black", width=3, height=1).pack(side="right", padx=15, pady=10)
+
+        # ===================== BUSCADOR =====================
+        search_frame = tk.Frame(self.ventana, bg=self.COLOR_FONDO)
+        search_frame.pack(fill="x", pady=10)
+
+        tk.Entry(search_frame, width=50, font=("Arial", 12), relief="solid", bd=1).pack(side="left", padx=(40, 5))
+        tk.Button(search_frame, text="🔍", bg=self.COLOR_VERDE, fg="white", relief="flat", width=3).pack(side="left")
+
+        # ===================== BARRA DE BOTONES =====================
+        barra_botones = tk.Frame(self.ventana, bg=self.COLOR_AMARILLO_CLARO)
+        barra_botones.pack(fill="x", pady=10)
+
+        # Botones conectados con sus respectivas vistas
+        self.btnRegistrarInv = tk.Button(barra_botones, text="Registrar invernaderos",
+                                         bg=self.COLOR_AMARILLO_CLARO, fg="black",
+                                         font=("Arial", 11, "bold"), width=20, height=2,
+                                         relief="ridge", bd=1,
+                                         command=lambda: VistaFormulario(self.ventana, "invernadero"))
+        self.btnRegistrarInv.pack(side="left", padx=5, pady=5)
+
+        self.btnControlInv = tk.Button(barra_botones, text="Control invernaderos",
+                                       bg=self.COLOR_AMARILLO_CLARO, fg="black",
+                                       font=("Arial", 11, "bold"), width=20, height=2,
+                                       relief="ridge", bd=1,
+                                       command=lambda: VistaFormulario(self.ventana, "control_invernadero"))
+        self.btnControlInv.pack(side="left", padx=5, pady=5)
+
+        self.btnControlHum = tk.Button(barra_botones, text="Control de humedad",
+                                       bg=self.COLOR_AMARILLO_CLARO, fg="black",
+                                       font=("Arial", 11, "bold"), width=20, height=2,
+                                       relief="ridge", bd=1,
+                                       command=lambda: self.mostrarMensaje("Funcionalidad próximamente disponible 🌦️"))
+        self.btnControlHum.pack(side="left", padx=5, pady=5)
+
+        self.btnControlPiso = tk.Button(barra_botones, text="Control de piso",
+                                        bg=self.COLOR_AMARILLO_CLARO, fg="black",
+                                        font=("Arial", 11, "bold"), width=20, height=2,
+                                        relief="ridge", bd=1,
+                                        command=lambda: self.mostrarMensaje("Funcionalidad próximamente disponible 🌱"))
+        self.btnControlPiso.pack(side="left", padx=5, pady=5)
+
+        self.btnControlEnf = tk.Button(barra_botones, text="Enfermedades",
+                                       bg=self.COLOR_AMARILLO_CLARO, fg="black",
+                                       font=("Arial", 11, "bold"), width=20, height=2,
+                                       relief="ridge", bd=1,
+                                       command=lambda: VistaFormulario(self.ventana, "enfermedad"))
+        self.btnControlEnf.pack(side="left", padx=5, pady=5)
+
+        # ===================== CONTENIDO CENTRAL =====================
+        contenido = tk.Frame(self.ventana, bg=self.COLOR_FONDO)
+        contenido.pack(fill="both", expand=True, padx=30, pady=10)
+
+        tk.Label(contenido, text="Filtrar: Invernaderos ▼", bg=self.COLOR_FONDO,
+                 font=("Arial", 11, "bold")).pack(anchor="w", pady=10)
+
+        tarjetas = tk.Frame(contenido, bg=self.COLOR_FONDO)
+        tarjetas.pack(pady=10)
+
+        # Tarjeta 1 simulada
+        card1 = tk.Frame(tarjetas, bg=self.COLOR_AMARILLO_CLARO, bd=1, relief="solid", padx=20, pady=15)
+        card1.grid(row=0, column=0, padx=20, pady=10)
+        tk.Label(card1, text="Invernadero Las Flores", bg=self.COLOR_AMARILLO_CLARO,
+                 font=("Arial", 12, "bold")).pack(anchor="w")
+        tk.Label(card1, bg=self.COLOR_VERDE, fg="white",
+                 width=30, height=8).pack(pady=10)
+    
+
+        # Tarjeta 2 simulada
+        card2 = tk.Frame(tarjetas, bg=self.COLOR_AMARILLO_CLARO, bd=1, relief="solid", padx=20, pady=15)
+        card2.grid(row=0, column=1, padx=20, pady=10)
+        tk.Label(card2, text="Invernadero Los Andes", bg=self.COLOR_AMARILLO_CLARO,
+                 font=("Arial", 12, "bold")).pack(anchor="w")
+        tk.Label(card2, bg=self.COLOR_AMARILLO, fg="black",
+                 width=30, height=8).pack(pady=10)
+
+        # ===================== PIE DE PÁGINA =====================
+        footer = tk.Frame(self.ventana, bg=self.COLOR_AMARILLO, height=30)
+        footer.pack(fill="x", side="bottom")
+        tk.Label(footer, text="Menú", bg=self.COLOR_AMARILLO, fg="black",
+                 font=("Arial", 11, "bold")).pack(side="right", padx=15)
+
+        # ===================== ROL DEL USUARIO =====================
+        tk.Label(self.ventana, text=f"Rol actual: {self.rol}", bg=self.COLOR_FONDO,
+                 fg="gray", font=("Arial", 10, "italic")).pack(side="bottom", pady=5)
+
+    def mostrarMensaje(self, texto):
+        tk.Label(self.ventana, text=texto, bg=self.COLOR_FONDO, fg="black", font=("Arial", 11)).pack(pady=10)
 # ===================== VISTA DE FORMULARIOS =====================
 class VistaFormulario:
     COLOR_LABEL = "#FFD166"  
